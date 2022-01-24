@@ -1,11 +1,11 @@
-from django.http import HttpRequest
+from django.http import HttpRequest,HttpResponse
 from django.shortcuts import render
+from foro.forms import FormularioPost
 
-# Create your views here.
-class loginUsuarioView(HttpRequest):
-    def base(request):
-        return render(request,"base.html")
+def foro(request):
+    return render(request,"foro.html")
 
 
-def registro(request):
-        return render(request,"registro.html")
+def make_post(request):
+    form = FormularioPost()
+    return render(request,"make_post.html",{"form":form})

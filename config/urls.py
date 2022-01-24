@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
-from foro.views import registro
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('registro/', registro, name="registro")
+    path('accounts/',include("autenticacion.urls")),
+    path('',include("foro.urls")),
 
 
 

@@ -1,28 +1,34 @@
 from django.db import models
 from django.db.models.base import Model
-from django.db.models.enums import Choices
-from django.db.models.fields.related import ForeignKey
-from django.forms import model_to_dict, forms
+from django.contrib.auth.models import User
 
 
-class Usuarios(models.Model):
-    name=models.CharField(max_length=50)
-    lastname=models.CharField(max_length=50)
-    age=models.CharField(max_length=50)
-    nickname=models.CharField(max_length=50)
-    email=models.CharField(max_length=50)
-    passwork=models.CharField(max_length=50)
+class Categoria(models.Model):
+    nombre= models.CharField(max_length=100,null=False,unique=True,verbose_name='Nombre')
 
     def __str__(self):
-        return self.name + self.lastname
+        return self.nombre
 
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
+    class meta:
+        db_table="categories"
+        verbose_name="Categoria"
+        verbose_name_plural = "Categorias"
+        ordering=['id']
 
-    class Meta:
-        db_table = 'usuarios'
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
-        ordering = ['-id']
 
+class Post(models.Model):
+    autor= models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
+    categoria= models.ForeignKey(Categoria,on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=100,unique=True,null=False ,verbose_name='Titulo')
+    contenido= models.TextField(null=True,verbose_name='Contenido post')
+    imagen = models.ImageField(upload_to='posts/%Y/%m/%d',null=True,blank=True,verbose_name='Imagen post')
+    fecha_alta = models.DateTimeField(auto_now_add=True,verbose_name='Fecha alta')
+    fecha_actualizacion = models.DateTimeField(auto_now_add=True, verbose_name='Fecha actualizacion')
+
+    def __str__(self):
+        return self.titulo
+    class meta:
+        db_table="posts"
+        verbose_name="Post"
+        verbose_name_plural = "Posts"
+        ordering=['id']

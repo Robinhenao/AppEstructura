@@ -1,7 +1,6 @@
-
 import os
 from pathlib import Path
-
+from django.contrib.messages import constants as message_constants
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ##my pakages
+    'crispy_forms',
+    ##my aplications
     'foro',
+    'autenticacion',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +117,17 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,"statics")
 ]
+#templete formulario
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
+#mensajes  flash
+MESSAGE_TAGS = {
+    message_constants.DEBUG:'debug',
+    message_constants.INFO:'info',
+    message_constants.SUCCESS:'success',
+    message_constants.WARNING:'warning',
+    message_constants.ERROR:'danger',
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

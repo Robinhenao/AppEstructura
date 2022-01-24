@@ -1,3 +1,12 @@
-from django.test import TestCase
+from config.wsgi import *
+from foro.models import Categoria
 
-# Create your tests here.
+categorias = Categoria.objects.all()
+print(type(categorias))
+
+'''
+categoria = Categoria(nombre="Python 3")
+categoria.save()
+'''
+categoriaPython = Categoria.objects.get(pk=1)
+print(categoriaPython)
