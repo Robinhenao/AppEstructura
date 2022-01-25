@@ -9,9 +9,9 @@ def foro(request):
     paginator = Paginator(listado_posts,3)
     pagina = request.GET.get("page") or 1
     posts = paginator.get_page(pagina)
-    pagina_page= int(pagina)
+    pagina_actual= int(pagina)
     paginas = range(1,posts.paginator.num_pages+1)
-    return render(request,"foro.html",{"posts":posts ,"paginas":paginas,"pagina_actial":pagina_page})
+    return render(request,"foro.html",{"posts":posts ,"paginas":paginas,"pagina_actual":pagina_actual})
 
 
 def make_post(request):
@@ -30,3 +30,18 @@ def make_post(request):
 
     form = FormularioPost()
     return render(request,"make_post.html",{"form":form})
+
+def delete_post(request,post_id):
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        messages.error(request,"el post a eliminar no existe")
+        return redirect("foro")
+
+    if post.autor != request.user:
+        messages.error(request,"no eres el autor")
+        return redirect("foro")
+
+    post.delete()
+    messages.success(request, f"el post {post.titulo} ha sido eliminado")
+    return redirect("foro")
