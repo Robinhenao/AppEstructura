@@ -34,7 +34,7 @@ class viewRegistro(View):
         if form.is_valid():
             usuario=form.save()
             nombre=form.cleaned_data.get("username")
-            messages.success(request,{nombre})
+            messages.success(request,f"registro exitoso {nombre}")
             login(request,usuario)
             return redirect("foro")
         else:
