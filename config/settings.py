@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     ##my pakages
     'crispy_forms',
+    'bootstrap4',
     ##my aplications
     'foro',
     'autenticacion',

@@ -5,3 +5,4 @@ class FormularioPost(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('categoria','titulo','contenido','imagen')
+
