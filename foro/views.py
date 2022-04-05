@@ -24,6 +24,7 @@ def make_post(request):
             post = form.save(commit=False)
             post.autor_id = request.user.id
             post.save()
+
             titulo = form.cleaned_data.get("titulo")
             messages.success(request, f" Se posteo {titulo} correctamente")
             return redirect("foro")
